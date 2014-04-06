@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ### BEGIN INIT INFO
 # Provides:          <%= @service_name %>
@@ -17,6 +17,8 @@ DAEMON=<%= @daemon %>
 DAEMONDIR=<%= @daemon_dir %>
 PIDFILE=/var/run/$NAME.pid
 
+. /etc/profile
+
 get_pid() {
   cat "$PIDFILE"
 }
@@ -31,7 +33,7 @@ start() {
   else
     echo "Starting $NAME"
     cd $DAEMONDIR
-    <%= @run_command %> $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &
+    $DAEMON >> $DAEMONDIR/daemon.log 2>&1 &
     echo "$!" > $PIDFILE
   fi
 }
